@@ -49,6 +49,11 @@ export default class Start extends Component {
                             key={color}
                             >
                             <TouchableOpacity
+                                // added accessibility
+                                accessible={true}
+                                accessibilityLabel="Select Background Color"
+                                accessibilityHint="Sets your chat screens background color."
+                                accessibilityRole="button"
                                 onPress={() => this.setState({ colorChoice: color })}
                                 style={[styles.colorButton, { backgroundColor: color }]}
                             />
@@ -57,6 +62,11 @@ export default class Start extends Component {
                         </View>
                     </View>
                     <TouchableOpacity
+                        // added accessibility
+                        accessible={true}
+                        accessibilityLabel="Start Chatting"
+                        accessibilityHint="Takes you to the chat screen."
+                        accessibilityRole="button"
                         style={styles.button}
                         onPress={() =>
                         navigation.navigate('Chat', { name: name, color: colorChoice })
@@ -85,8 +95,7 @@ const styles = StyleSheet.create({
     },
     startContainer: {
         marginTop: 'auto',
-        minWidth: '100%',
-        minHeight: 300,
+        width: '100%',
         height: '44%',
         padding: '6%',
         backgroundColor: '#fff',
