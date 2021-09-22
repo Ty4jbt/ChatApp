@@ -4,9 +4,9 @@
     "slug": "hello_world",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon.svg",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/background_image.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
