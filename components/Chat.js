@@ -67,8 +67,6 @@ export default class Chat extends React.Component {
   // Stops updating
   componentWillUnmount() {
     this.authUnsubscribe();
-
-    this.unsubscribe();
   }
 
   onCollectionUpdate = (querySnapshot) => {
