@@ -28,12 +28,13 @@ export default class Chat extends React.Component {
       }
     }
 
-    // Allows you to refence firestore data
-    this.referenceChatMessages = firebase.firestore().collection("messages");
-
     if (!firebase.apps.length){
       firebase.initializeApp(firebaseConfig);
     }
+    
+    // Allows you to refence firestore data
+    this.referenceChatMessages = firebase.firestore().collection("messages");
+
   }
 
   // sets default message set opening
@@ -66,6 +67,8 @@ export default class Chat extends React.Component {
   // Stops updating
   componentWillUnmount() {
     this.authUnsubscribe();
+
+    this.unsubscribe();
   }
 
   onCollectionUpdate = (querySnapshot) => {
