@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, KeyboardAvoidingView } from 'react-native';
+import CustomActions from './CustomActions';
 
 // Gifted Chat
-import { GiftedChat, Bubble, InputToolbar  } from 'react-native-gifted-chat';
+import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat';
 
 // Firebase
 import firebase from "firebase";
@@ -13,6 +14,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Netinfo
 import NetInfo from '@react-native-community/netinfo';
+
+// Mapview to view location that was sent
+import MapView from 'react-native-maps';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAu5d3-VUBGZIrYMje8Lovas9OzHOTQIzU",
@@ -136,6 +140,8 @@ export default class Chat extends React.Component {
           _id: data.user._id,
           name: data.user.name,
         },
+        image: data.image || null,
+        location: data.location || null
       });
     });
     this.setState({
@@ -169,6 +175,11 @@ export default class Chat extends React.Component {
     )
   }
 
+  // Renders Custom Actions
+  renderCustomActions = (props) => {
+    return <CustomActions {...props} />;
+  };
+
   //If offline, dont render the input toolbar
   renderInputToolbar(props) {  
     if (this.state.isConnected === false) {
@@ -179,6 +190,30 @@ export default class Chat extends React.Component {
         />
       );
     }
+  }
+
+ // Function to render the Custom View, which will be used to display the location map
+  renderCustomView = (props) => {
+    const { currentMessage } = props;
+    if (currentMessage.location) {
+      return (
+          <MapView
+              style={{
+                  width: 150,
+                  height: 100,
+                  borderRadius: 13,
+                  margin: 3
+              }}
+              region={{
+                  latitude: currentMessage.location.latitude,
+                  longitude: currentMessage.location.longitude,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+              }}
+          />
+      );
+    }
+    return null;
   }
 
   // sets up user chat bubble
@@ -207,6 +242,8 @@ export default class Chat extends React.Component {
         backgroundColor: color
       }}>
         <GiftedChat
+          renderCustomView={this.renderCustomView}
+          renderActions={this.renderCustomActions}
           renderInputToolbar={this.renderInputToolbar.bind(this)}
           renderBubble={this.renderBubble.bind(this)}
           messages={this.state.messages}
