@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, KeyboardAvoidingView } from 'react-native';
+import { View, KeyboardAvoidingView, LogBox } from 'react-native';
 import CustomActions from './CustomActions';
 
 // Gifted Chat
@@ -47,6 +47,7 @@ export default class Chat extends React.Component {
     // Allows you to refence firestore data
     this.referenceChatMessages = firebase.firestore().collection("messages");
 
+    LogBox.ignoreAllLogs();
   }
 
   // sets default message set opening
@@ -155,9 +156,11 @@ export default class Chat extends React.Component {
     this.referenceChatMessages.add({
       uid: this.state.uid,
       _id: message._id,
-      text: message.text,
+      text: message.text || '',
       createdAt: message.createdAt,
       user: message.user,
+      image: message.image || null,
+      location: message.location || null
     });
   }
 
