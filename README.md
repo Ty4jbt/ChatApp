@@ -13,7 +13,7 @@ The easiest way to get started is to clone the repository:
 
 ## clone the repository
 
-git clone https://github.com/iamnachoj/Chat-App
+git clone https://github.com/ty4jbt/ChatApp
 
 ## Install NPM dependencies
 
